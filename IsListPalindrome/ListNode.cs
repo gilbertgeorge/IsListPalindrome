@@ -1,20 +1,20 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace ListNode
+﻿namespace IsListPalindrome.ListNode
 {
 	public class ListNode<T>
 	{
+		public T _value { get; set; }
+		public ListNode<T> _next { get; set; }
+
 		public ListNode()
 		{
-			this.value = default(T);
-			this.next = null;
+			this._value = default(T);
+			this._next = null;
 		}
 
 		public ListNode(T cValue, ListNode<T> cNext)
 		{
-			this.value = cValue;
-			this.next = cNext;
+			this._value = cValue;
+			this._next = cNext;
 		}
 
 		public static bool operator ==(ListNode<T> a, T b)
@@ -31,7 +31,7 @@ namespace ListNode
 
 		public override bool Equals(object obj)
 		{
-			dynamic da = this.value, db = obj;
+			dynamic da = this._value, db = obj;
 			return da == db;
 		}
 
@@ -39,8 +39,5 @@ namespace ListNode
 		{
 			return 0;
 		}
-
-		public T value { get; set; }
-		public ListNode<T> next { get; set; }
 	}
 }

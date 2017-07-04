@@ -1,9 +1,8 @@
-﻿using ListNode;
+﻿using IsListPalindrome.ListNode;
 using System;
-using System.Collections;
 using System.Collections.Generic;
 
-namespace IsListPalindrome
+namespace IsListPalindrome.Program
 {
 	public static class IsListPalindrome
 	{
@@ -11,8 +10,8 @@ namespace IsListPalindrome
 		{
 			//odd example
 			ListNode<int> i = new ListNode<int>();
-			i.value = 1;
-			i.next = new ListNode<int>(2, new ListNode<int>(4, new ListNode<int>(6, new ListNode<int>(4, new ListNode<int>(2, new ListNode<int>(1, null))))));
+			i._value = 1;
+			i._next = new ListNode<int>(2, new ListNode<int>(4, new ListNode<int>(6, new ListNode<int>(4, new ListNode<int>(2, new ListNode<int>(1, null))))));
 			string mirroredValues;
 
 			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
@@ -20,28 +19,27 @@ namespace IsListPalindrome
 
 			//even example
 			i = new ListNode<int>();
-			i.value = 2;
-			i.next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(5, new ListNode<int>(4, new ListNode<int>(2, null)))));
+			i._value = 2;
+			i._next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(5, new ListNode<int>(4, new ListNode<int>(2, null)))));
 
 			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
 			Console.WriteLine(mirroredValues);
 
 			//failed example
 			i = new ListNode<int>();
-			i.value = 2;
-			i.next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(3, new ListNode<int>(4, new ListNode<int>(2, null)))));
+			i._value = 2;
+			i._next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(3, new ListNode<int>(4, new ListNode<int>(2, null)))));
 
 			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
 			Console.WriteLine(mirroredValues);
 
 			//chars!
 			ListNode<char> c = new ListNode<char>();
-			c.value = 'a';
-			c.next = new ListNode<char>('b', new ListNode<char>('c', new ListNode<char>('d', new ListNode<char>('c', new ListNode<char>('b', new ListNode<char>('a', null))))));
+			c._value = 'a';
+			c._next = new ListNode<char>('b', new ListNode<char>('c', new ListNode<char>('d', new ListNode<char>('c', new ListNode<char>('b', new ListNode<char>('a', null))))));
 
 			Console.WriteLine(isListPalindrome(ref c, out mirroredValues));
 			Console.WriteLine(mirroredValues);
-
 			Console.Read();
 		}
 
@@ -55,9 +53,9 @@ namespace IsListPalindrome
 			{
 				if (l != null)
 				{
-					stack.Push(l.value);
-					list.Add(l.value);
-					l = l.next;
+					stack.Push(l._value);
+					list.Add(l._value);
+					l = l._next;
 				}
 				else
 				{
