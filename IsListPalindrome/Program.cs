@@ -1,5 +1,6 @@
 ﻿using ListNode;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace IsListPalindrome
@@ -8,58 +9,74 @@ namespace IsListPalindrome
 	{
 		public static void Main(string[] args)
 		{
-			ListNode<int> l = new ListNode<int>();
-			l.value = 1;
-			l.next = new ListNode<int>(2, new ListNode<int>(4, new ListNode<int>(6, new ListNode<int>(4, new ListNode<int>(2, new ListNode<int>(1, null))))));
+			//odd example
+			ListNode<int> i = new ListNode<int>();
+			i.value = 1;
+			i.next = new ListNode<int>(2, new ListNode<int>(4, new ListNode<int>(6, new ListNode<int>(4, new ListNode<int>(2, new ListNode<int>(1, null))))));
+			string mirroredValues;
 
-			Console.Write(isListPalindrome(ref l));
+			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
+			Console.WriteLine(mirroredValues);
+
+			//even example
+			i = new ListNode<int>();
+			i.value = 2;
+			i.next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(5, new ListNode<int>(4, new ListNode<int>(2, null)))));
+
+			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
+			Console.WriteLine(mirroredValues);
+
+			//failed example
+			i = new ListNode<int>();
+			i.value = 2;
+			i.next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(3, new ListNode<int>(4, new ListNode<int>(2, null)))));
+
+			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
+			Console.WriteLine(mirroredValues);
+
+			//chars!
+			ListNode<char> c = new ListNode<char>();
+			c.value = 'a';
+			c.next = new ListNode<char>('b', new ListNode<char>('c', new ListNode<char>('d', new ListNode<char>('c', new ListNode<char>('b', new ListNode<char>('a', null))))));
+
+			Console.WriteLine(isListPalindrome(ref c, out mirroredValues));
+			Console.WriteLine(mirroredValues);
 
 			Console.Read();
 		}
 
-		private static bool isListPalindrome<T>(ref ListNode<T> l) where T : struct
+		private static bool isListPalindrome<T>(ref ListNode<T> l, out string mirroredValues) where T : struct
 		{
-			bool retVal = false;
-			Stack<T> values = new Stack<T>();
-			ListNode<T> t = new ListNode<T>();
-			t = l;
+			Stack<T> stack = new Stack<T>();
+			List<T> list = new List<T>();
+			mirroredValues = string.Empty;
 
-			while (l != null)
+			for(;;)
 			{
-				if (l.next != null)
+				if (l != null)
 				{
-					values.Push(l.value);
+					stack.Push(l.value);
+					list.Add(l.value);
 					l = l.next;
 				}
 				else
 				{
-					int count = values.Count;
-					while (values.Count > count / 2)
+					for (int v = 0; v < list.Count/2 ; v++)
 					{
-						values.Pop();
-					}
-
-					for(int v = 0;v < values.Count;v++)
-					{
-						Console.Write(t.value);
-
-						if (t == values.Peek())
+						if (list[v].Equals(stack.Peek()))
 						{
-							t = t.next;
-							values.Pop();
+							mirroredValues += list[v].ToString() + " ";
+							stack.Pop();
 						}
 						else
 						{
-							break;
+							return false;
 						}
 					}
 
-					retVal = true;
+					return true;
 				}
 			}
-
-			return retVal;
 		}
-
 	}
 }
