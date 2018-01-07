@@ -9,38 +9,45 @@ namespace IsListPalindrome.Program
 		public static void Main(string[] args)
 		{
 			//odd example
-			ListNode<int> i = new ListNode<int>();
-			i._value = 1;
-			i._next = new ListNode<int>(2, new ListNode<int>(4, new ListNode<int>(6, new ListNode<int>(4, new ListNode<int>(2, new ListNode<int>(1, null))))));
-			string mirroredValues;
-
-			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
-			Console.WriteLine(mirroredValues);
+			ListNode<int> oddCountList = new ListNode<int>();
+			oddCountList.Value = 1;
+			oddCountList.Next = new ListNode<int>(2, new ListNode<int>(4, new ListNode<int>(6, new ListNode<int>(4, new ListNode<int>(2, new ListNode<int>(1, null))))));
+			PrintMirroredValues(ref oddCountList);
 
 			//even example
-			i = new ListNode<int>();
-			i._value = 2;
-			i._next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(5, new ListNode<int>(4, new ListNode<int>(2, null)))));
-
-			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
-			Console.WriteLine(mirroredValues);
+			ListNode<int> evenCountList = new ListNode<int>();
+			evenCountList.Value = 2;
+			evenCountList.Next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(5, new ListNode<int>(4, new ListNode<int>(2, null)))));
+			PrintMirroredValues(ref evenCountList);
 
 			//failed example
-			i = new ListNode<int>();
-			i._value = 2;
-			i._next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(3, new ListNode<int>(4, new ListNode<int>(2, null)))));
-
-			Console.WriteLine(isListPalindrome(ref i, out mirroredValues));
-			Console.WriteLine(mirroredValues);
+			ListNode<int> failList = new ListNode<int>();
+			failList.Value = 2;
+			failList.Next = new ListNode<int>(4, new ListNode<int>(5, new ListNode<int>(3, new ListNode<int>(4, new ListNode<int>(2, null)))));
+			PrintMirroredValues(ref failList);
 
 			//chars!
-			ListNode<char> c = new ListNode<char>();
-			c._value = 'a';
-			c._next = new ListNode<char>('b', new ListNode<char>('c', new ListNode<char>('d', new ListNode<char>('c', new ListNode<char>('b', new ListNode<char>('a', null))))));
+			ListNode<char> charList = new ListNode<char>();
+			charList.Value = 'a';
+			charList.Next = new ListNode<char>('b', new ListNode<char>('c', new ListNode<char>('d', new ListNode<char>('c', new ListNode<char>('b', new ListNode<char>('a', null))))));
+			PrintMirroredValues(ref charList);
 
-			Console.WriteLine(isListPalindrome(ref c, out mirroredValues));
-			Console.WriteLine(mirroredValues);
 			Console.Read();
+		}
+
+		private static void PrintMirroredValues<T>(ref ListNode<T> list) where T : struct
+		{
+			string mirroredValues;
+			var status = isListPalindrome(ref list, out mirroredValues);
+
+			if (status)
+			{
+				Console.WriteLine($"Palindrome found, mirrored values are: {mirroredValues}");
+			}
+			else
+			{
+				Console.WriteLine($"No palindrome found.");
+			}
 		}
 
 		private static bool isListPalindrome<T>(ref ListNode<T> l, out string mirroredValues) where T : struct
@@ -53,9 +60,9 @@ namespace IsListPalindrome.Program
 			{
 				if (l != null)
 				{
-					stack.Push(l._value);
-					list.Add(l._value);
-					l = l._next;
+					stack.Push(l.Value);
+					list.Add(l.Value);
+					l = l.Next;
 				}
 				else
 				{

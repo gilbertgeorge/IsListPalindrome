@@ -2,8 +2,32 @@
 {
 	public class ListNode<T>
 	{
-		public T _value { get; set; }
-		public ListNode<T> _next { get; set; }
+		private T _value;
+		private ListNode<T> _next;
+
+		public T Value
+		{
+			get
+			{
+				return _value;
+			}
+			set
+			{
+				_value = value;
+			}
+		}
+
+		public ListNode<T> Next
+		{
+			get
+			{
+				return _next;
+			}
+			set
+			{
+				_next = value;
+			}
+		}
 
 		public ListNode()
 		{
